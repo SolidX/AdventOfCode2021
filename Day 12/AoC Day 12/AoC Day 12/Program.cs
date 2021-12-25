@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace AoC_Day_12
 {
@@ -17,6 +16,7 @@ namespace AoC_Day_12
             var caveNetwork = ParseInput(input);
 
             Part1(caveNetwork);
+            Part2(caveNetwork);
         }
 
         public static UndirectedGraph ParseInput(string[] input)
@@ -55,11 +55,28 @@ namespace AoC_Day_12
             Console.WriteLine("~ Part 1 ~");
             Console.WriteLine();
 
-            //???
             var start = caveNetwork.GetVertexByName("start");
             var end  = caveNetwork.GetVertexByName("end");
-            var routes = new List<List<Vertex>>();
-            caveNetwork.DFS(start, end, new HashSet<Vertex>(), new List<Vertex>(), routes);
+            var s = new Stack<Vertex>();
+            s.Push(start);
+            var routes = new List<string>();
+            caveNetwork.DFS(start, end, new HashSet<Vertex>(), s, routes);
+
+            Console.WriteLine($"There are {routes.Count} routes available.");
+            Console.WriteLine();
+        }
+
+        public static void Part2(UndirectedGraph caveNetwork)
+        {
+            Console.WriteLine("~ Part 2 ~");
+            Console.WriteLine();
+
+            var start = caveNetwork.GetVertexByName("start");
+            var end = caveNetwork.GetVertexByName("end");
+            var s = new Stack<Vertex>();
+            s.Push(start);
+            var routes = new List<string>();
+            caveNetwork.DFSSingleDoubleVisit(start, end, s, routes);
 
             Console.WriteLine($"There are {routes.Count} routes available.");
             Console.WriteLine();

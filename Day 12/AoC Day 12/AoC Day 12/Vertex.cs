@@ -8,13 +8,13 @@ namespace AoC_Day_12
 
         public bool MultiVisit { get; set; }
 
-        public bool Visited { get; set; }
+        public int Visited { get; set; }
 
         public Vertex(string name)
         {
             Name = name;
             MultiVisit = false;
-            Visited = false;
+            Visited = 0;
         }
 
         public bool Equals(Vertex b)
